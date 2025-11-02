@@ -2,6 +2,14 @@ from fastapi import FastAPI
 from supabase import create_client
 import os
 from dotenv import load_dotenv
+from pydantic import BaseModel
+
+
+class Pet(BaseModel):
+    nome:str
+    idade:int
+    status:str
+    cpf:str
 
 load_dotenv()
 
@@ -12,17 +20,23 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = FastAPI()
 
-
-cachorro = {"nome": "fulano"}
-
 @app.get("/")
 def root():
     return "status: API rodando"
 
-@app.get("/create-pet")
-def create():
-    
-    return {"status": 200, "response": "cachorro cadastrado com sucesso"}
+@app.post("/create-pet")
+def create(pet:Pet):
+    response =  supabase.table("PetTech").insert({
+        "nome":pet.nome,
+        "idade":pet.idade,
+        "status": pet.status,
+        "cpf": pet.cpf,
+        "especie": pet.especie,
+        "raca": pet.raca
+        
+
+        }).execute()
+    return {"status": 200, "data": response}
 
 
 @app.get("/list-pet")
