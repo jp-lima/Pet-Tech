@@ -44,4 +44,20 @@ def list():
     response = supabase.table("PetTech").select("*").execute()
     
     return response
+@app.delete("/delete-pet/{pet_id}")
+def delete(pet_id: int):
+    response = supabase.table("PetTech").delete().eq("id", pet_id).execute()
+    return {"status": 200, "data": response}
+
+@app.put("/update-pet/{pet_id}")
+def update(pet_id: int, pet: Pet):
+    response = supabase.table("PetTech").update({
+        "nome": pet.nome,
+        "idade": pet.idade,
+        "status": pet.status,
+        "cpf": pet.cpf,
+        "especie": pet.especie,
+        "raca": pet.raca
+    }).eq("id", pet_id).execute()
+    return {"status": 200, "data": response}
 
