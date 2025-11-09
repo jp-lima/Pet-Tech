@@ -10,6 +10,8 @@ class Pet(BaseModel):
     idade:int
     status:str
     cpf:str
+    especie:str
+    raca:str
 
 load_dotenv()
 
