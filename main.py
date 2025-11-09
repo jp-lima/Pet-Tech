@@ -3,7 +3,7 @@ from supabase import create_client
 import os
 from dotenv import load_dotenv
 from pydantic import BaseModel
-
+from fastapi.middleware.cors import CORSMiddleware
 
 class Pet(BaseModel):
     nome:str
