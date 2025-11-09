@@ -11,7 +11,6 @@ class Pet(BaseModel):
     status:str
     cpf:str
     especie:str
-    raca:str
 
 load_dotenv()
 
@@ -32,7 +31,7 @@ app.add_middleware(
 
 @app.get("/")
 def root():
-    return "status: API rodando usaaj"
+    return "status: API rodando, um beijãunnn peu melancia"
 
 @app.post("/create-pet")
 def create(pet:Pet):
@@ -42,7 +41,6 @@ def create(pet:Pet):
         "status": pet.status,
         "cpf": pet.cpf,
         "especie":pet.especie,
-        "raca":pet.raca
         }).execute()
     return "adicionado"
 
@@ -65,7 +63,6 @@ def update(pet_id: int, pet: Pet):
         "status": pet.status,
         "cpf": pet.cpf,
         "especie": pet.especie,
-        "raca": pet.raca
     }).eq("id", pet_id).execute()
     return {"status": 200, "data": response}
 
