@@ -20,9 +20,17 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # pode usar ["*"] para permitir tudo
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 def root():
-    return "status: API rodando"
+    return "status: API rodando usaaj"
 
 @app.post("/create-pet")
 def create(pet:Pet):
@@ -31,12 +39,8 @@ def create(pet:Pet):
         "idade":pet.idade,
         "status": pet.status,
         "cpf": pet.cpf,
-        "especie": pet.especie,
-        "raca": pet.raca
-        
-
         }).execute()
-    return {"status": 200, "data": response}
+    return "adicionado"
 
 
 @app.get("/list-pet")
