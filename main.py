@@ -41,6 +41,8 @@ def create(pet:Pet):
         "idade":pet.idade,
         "status": pet.status,
         "cpf": pet.cpf,
+        "especie":pet.especie,
+        "raca":pet.raca
         }).execute()
     return "adicionado"
 
